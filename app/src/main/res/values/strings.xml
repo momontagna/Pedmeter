@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Pedometer</string>
+    <string name="title">歩数でお遍路アプリ（仮）</string>
+    <string name="start">開始</string>
+    <string name="now_step">開始から0歩</string>
+    <string name="route">四国八十八か所（ルート）</string>
+    <string name="templefrom">　</string>
+    <string name="between">から</string>
+    <string name="templeto">あと0歩</string>
+    <string name="templeFrom">　</string>
+    <string name="txTempleto">第N版札所まで</string>
+    <string name="NextTempleStep">あとN歩</string>
+</resources>
