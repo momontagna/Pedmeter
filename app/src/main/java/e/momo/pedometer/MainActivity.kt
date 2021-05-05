@@ -3,11 +3,13 @@ package e.momo.pedometer
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity(),SensorEventListener {
     var nstep_tonext = 0
     var ntemple = 0
 
-    // TODO: 21/04/17 データの処理方法は外部に保存する．
+    // TODO: 21/04/17 読み込む札所のデータはは外部に保存する．
     //Array 札所番号，寺院名，前の札所からの距離[km],(wikipediaリンク)
     var temples = (arrayOf(
         arrayOf(1,"竺和山",2),arrayOf(2,"日照山",2),arrayOf(3,"亀光山",2),arrayOf(4,"黒巖山",2),
@@ -92,11 +94,11 @@ class MainActivity : AppCompatActivity(),SensorEventListener {
 
 
 
+
+
     //初期設定では四国ルートとする
     var selectedtemples = temples
     var distance = temples[ntemple][2] as Int
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,12 +110,22 @@ class MainActivity : AppCompatActivity(),SensorEventListener {
         btClear.setOnClickListener(listener)
         btSave.setOnClickListener(listener)
 
+        //外部保存の処理
+        // "DataStore"という名前でインスタンスを生成
+        val dataStore:SharedPreferences = getSharedPreferences("DaraStore", Context.MODE_PRIVATE)
+        val editor = dataStore.edit()
+
+
+
+        //初期値を読み出す。なければ0とする。
+        var dataInitialStep = dataStore.getInt("nstep", 0)
+        nstep = dataInitialStep
+
         //初期表示
         //txTemplefrom.text = "第${temples[ntemple][0]}札所　${temples[ntemple][1]}"
         txTempleto.text= "第${selectedtemples[ntemple+1][0]}番札所　${selectedtemples[ntemple+1][1]}まで"
         nstep_tonext = selectedtemples[ntemple + 1][2] as Int
         txNextTempleStep.text = "あと${nstep_tonext}歩"
-
     }
 
 
@@ -141,7 +153,7 @@ class MainActivity : AppCompatActivity(),SensorEventListener {
                 txRoute.text = route
                 if (route == "四国八十八箇所"){
                     selectedtemples = tempples_shikoku
-                    Redeaw()
+                    Redraw()
                     Toast.makeText(applicationContext, "四国八十八箇所ルートに切り替えました．", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -161,6 +173,12 @@ class MainActivity : AppCompatActivity(),SensorEventListener {
                 }
                 R.id.btSave -> {
                     // TODO: 21/04/25 保存ボタンをクリックした時は現状を外部データに書き出す
+                    val dataStore:SharedPreferences = getSharedPreferences("DaraStore", Context.MODE_PRIVATE)
+                    val editor = dataStore.edit()
+                    editor.putInt("nstep", nstep)
+                    editor.apply()
+                    Log.i("ExternalOutputSave", nstep.toString())
+                    Toast.makeText(applicationContext, "保存しました。", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -220,7 +238,26 @@ class MainActivity : AppCompatActivity(),SensorEventListener {
         return false
     }
 
-    fun Redeaw(){
+    //
+    fun nstepToNowLocation(n:Int): Pair<Int, Int>{
+        var i = 0
+        var nt = 0 //札所カウント
+        var nrem = n //残り歩数
+        var tmpstep = 0
+        while(i < n){
+            tmpstep = temples[nt][2]as Int
+            if(tmpstep < n){
+                nt++
+                nrem -= tmpstep
+            }else{
+                return Pair(nt, nrem)
+            }
+        }
+    }
+
+
+
+    fun Redraw(){
         txTempleto.text= "第${temples[ntemple+1][0]}番札所　${temples[ntemple+1][1]}まで"
         txNstep.text = "${nstep}歩"
     }
