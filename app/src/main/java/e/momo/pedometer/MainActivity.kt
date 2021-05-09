@@ -18,8 +18,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity(),SensorEventListener {
-
-
     var abs_acceleration = 0.0
     var nstep = 0
 
