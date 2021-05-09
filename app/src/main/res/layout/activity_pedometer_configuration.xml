@@ -5,11 +5,12 @@
     android:id="@+id/lvCnfig"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PedometerConfiguration">
+    tools:context=".PedometerConfiguration"
+    android:background="#BBD5EA">
 
     <Button
         android:id="@+id/btShikokuRoute"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:text="四国八十八箇所"
@@ -20,7 +21,7 @@
 
     <Button
         android:id="@+id/btChitashikokuRoute"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="知多四国八十八箇所"
@@ -28,22 +29,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btShikokuRoute" />
 
-    <Button
-        android:id="@+id/btSaigokuRoute"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="西国三十三所"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btChitashikokuRoute" />
-
     <TextView
         android:id="@+id/txRouteSetting"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="36dp"
+        android:layout_marginEnd="30dp"
         android:text="ルート設定"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.175"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,18 +45,21 @@
 
     <TextView
         android:id="@+id/txReset"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="156dp"
+        android:layout_marginEnd="30dp"
         android:text="リセット"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btSaigokuRoute" />
+        app:layout_constraintTop_toBottomOf="@+id/btChitashikokuRoute" />
 
     <Button
         android:id="@+id/btReset"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="リセット"
